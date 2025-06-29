@@ -45,7 +45,7 @@ def load_model():
     Al iniciar la aplicación, leer todos los estilos de la BD
     y darles `num_classes` al modelo antes de cargar los pesos.
     """
-    ensure_model()
+    #ensure_model()
     db = SessionLocal()
     try:
         estilos = get_estilos(db)
