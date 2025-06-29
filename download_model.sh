@@ -9,4 +9,4 @@ pip install --no-cache-dir gdown
 #   https://drive.google.com/file/d/1vYDBecyjRa5-Z9uJVXmkNmjKec0gOlry/view
 gdown --id 1vYDBecyjRa5-Z9uJVXmkNmjKec0gOlry -O ./model.pth
 
-echo "✅ model.pth descargado en: $(pwd)/model.pth"
+echo "✅ model.pth descargado en: $(pwd)/ViTImproved_trained.pth"
