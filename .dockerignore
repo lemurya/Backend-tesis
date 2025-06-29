@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.ipynb
+*.zip
+*.tar.gz
+*.log
+.git
+.env
+node_modules/
+tests/
+docs/
