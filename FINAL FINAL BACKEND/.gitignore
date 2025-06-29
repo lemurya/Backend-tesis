@@ -1,0 +1,6 @@
+.env
+\.venv*
+ViTImproved_trained.pth
+\.idea*
+uploads/predictions/*
+!uploads/predictions/.gitkeep

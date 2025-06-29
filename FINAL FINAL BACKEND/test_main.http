@@ -1,0 +1,15 @@
+@host = http://localhost:8000
+
+### 1. Predicción subiendo imagen (multipart/form-data)
+POST {{host}}/predict/ HTTP/1.1
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="image"; filename="monet.jpg"
+Content-Type: image/jpg
+
+< D:\APP MOVIL\tesis_carolina-master\tesis_carolina-master\monet.jpg
+--MyBoundary--
+
+### 2. Predicción indicando la ruta (query‑string)
+GET {{host}}/predict/by-path?image_path=D:\APP MOVIL\tesis_carolina-master\tesis_carolina-master\monet.jpg
