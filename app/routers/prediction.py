@@ -96,13 +96,16 @@ async def predict_upload(
     client_ip = request.client.host if request.client else None
     user_agent = request.headers.get("user-agent")
     
+    # Convert device_uuid string to UUID object
+    device_uuid_obj = uuid.UUID(device_uuid)
+    
     history_data = HistoryCreate(
         estilo_id=estilo.id,
         image_path=saved_image_path,  # Guardamos la ruta real de la imagen
         confidence_score=None,
         client_ip=client_ip,
         user_agent=user_agent,
-        device_uuid=device_uuid,
+        device_uuid=device_uuid_obj,
         device_type=device_type
     )
     
@@ -145,13 +148,16 @@ def predict_by_path(
     client_ip = request.client.host if request.client else None
     user_agent = request.headers.get("user-agent")
     
+    # Convert device_uuid string to UUID object
+    device_uuid_obj = uuid.UUID(device_uuid)
+    
     history_data = HistoryCreate(
         estilo_id=estilo.id,
         image_path=image_path,
         confidence_score=None,
         client_ip=client_ip,
         user_agent=user_agent,
-        device_uuid=device_uuid,
+        device_uuid=device_uuid_obj,
         device_type=device_type
     )
     

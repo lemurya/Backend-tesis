@@ -2,6 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Dict, List, Optional
 from datetime import datetime
 from decimal import Decimal
+from uuid import UUID
 
 class EstiloBase(BaseModel):
     nombre:      str
@@ -33,7 +34,7 @@ class HistoryBase(BaseModel):
     confidence_score: Optional[Decimal] = None
     client_ip: Optional[str] = None
     user_agent: Optional[str] = None
-    device_uuid: str
+    device_uuid: UUID
     device_type: Optional[str] = None
 
 class HistoryCreate(HistoryBase):

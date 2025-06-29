@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, DECIMAL, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import UUID
 from app.database import Base
 
 class Estilo(Base):
@@ -22,7 +23,7 @@ class History(Base):
     created_at       = Column(DateTime(timezone=True), server_default=func.now())
     client_ip        = Column(Text)
     user_agent       = Column(Text)
-    device_uuid      = Column(String, nullable=False)
+    device_uuid      = Column(UUID, nullable=False)
     device_type      = Column(String)
     
     # Relación con estilo

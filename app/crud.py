@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from uuid import UUID
 from app.models import Estilo, History
 from app.schemas import EstiloCreate, HistoryCreate
 
@@ -29,7 +30,9 @@ def create_history_entry(db: Session, history_in: HistoryCreate):
 def get_history_entries(db: Session, device_uuid: str = None, skip: int = 0, limit: int = 100):
     query = db.query(History)
     if device_uuid:
-        query = query.filter(History.device_uuid == device_uuid)
+        # Convert string to UUID for filtering
+        device_uuid_obj = UUID(device_uuid)
+        query = query.filter(History.device_uuid == device_uuid_obj)
     return query.offset(skip).limit(limit).all()
 
 def get_history_by_estilo(db: Session, estilo_id: int, skip: int = 0, limit: int = 100):
