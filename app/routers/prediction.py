@@ -61,6 +61,8 @@ def get_image_url(image_path: str, request: Request) -> str:
 async def predict_upload(
     request: Request,
     image: UploadFile = File(...),
+    device_uuid: str = File(...),
+    device_type: str = File(None),
     db: Session = Depends(get_db)
 ):
     # Validar tipo de archivo
@@ -98,7 +100,9 @@ async def predict_upload(
         image_path=saved_image_path,  # Guardamos la ruta real de la imagen
         confidence_score=None,
         client_ip=client_ip,
-        user_agent=user_agent
+        user_agent=user_agent,
+        device_uuid=device_uuid,
+        device_type=device_type
     )
     
     create_history_entry(db, history_data)
@@ -121,6 +125,8 @@ async def predict_upload(
 def predict_by_path(
     request: Request,
     image_path: str = Query(..., description="Ruta absoluta o relativa a la imagen"),
+    device_uuid: str = Query(...),
+    device_type: str = Query(None),
     db: Session = Depends(get_db)
 ):
     if not os.path.isfile(image_path):
@@ -143,7 +149,9 @@ def predict_by_path(
         image_path=image_path,
         confidence_score=None,
         client_ip=client_ip,
-        user_agent=user_agent
+        user_agent=user_agent,
+        device_uuid=device_uuid,
+        device_type=device_type
     )
     
     create_history_entry(db, history_data)
@@ -166,13 +174,13 @@ def predict_by_path(
 )
 def get_history(
     request: Request,
+    device_uuid: str = Query(None, description="Filtrar por device_uuid registrado"),
     skip: int = Query(0, ge=0, description="Número de registros a saltar"),
     limit: int = Query(100, ge=1, le=1000, description="Número máximo de registros"),
     db: Session = Depends(get_db)
 ):
-    """Obtiene el historial de predicciones con paginación"""
-    history_entries = get_history_entries(db, skip=skip, limit=limit)
-    
+    """Obtiene el historial de predicciones con paginación y filtrado por device_uuid"""
+    history_entries = get_history_entries(db, device_uuid=device_uuid, skip=skip, limit=limit)
     # Agregar URL completa a cada entrada
     for entry in history_entries:
         if hasattr(entry, 'image_path'):

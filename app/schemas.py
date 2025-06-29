@@ -33,6 +33,8 @@ class HistoryBase(BaseModel):
     confidence_score: Optional[Decimal] = None
     client_ip: Optional[str] = None
     user_agent: Optional[str] = None
+    device_uuid: str
+    device_type: Optional[str] = None
 
 class HistoryCreate(HistoryBase):
     pass

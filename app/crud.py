@@ -26,8 +26,11 @@ def create_history_entry(db: Session, history_in: HistoryCreate):
     db.refresh(db_history)
     return db_history
 
-def get_history_entries(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(History).offset(skip).limit(limit).all()
+def get_history_entries(db: Session, device_uuid: str = None, skip: int = 0, limit: int = 100):
+    query = db.query(History)
+    if device_uuid:
+        query = query.filter(History.device_uuid == device_uuid)
+    return query.offset(skip).limit(limit).all()
 
 def get_history_by_estilo(db: Session, estilo_id: int, skip: int = 0, limit: int = 100):
     return db.query(History).filter(History.estilo_id == estilo_id).offset(skip).limit(limit).all()

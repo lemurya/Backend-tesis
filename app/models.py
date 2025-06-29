@@ -22,6 +22,8 @@ class History(Base):
     created_at       = Column(DateTime(timezone=True), server_default=func.now())
     client_ip        = Column(Text)
     user_agent       = Column(Text)
+    device_uuid      = Column(String, nullable=False)
+    device_type      = Column(String)
     
     # Relación con estilo
     estilo = relationship("Estilo", back_populates="history_entries")
