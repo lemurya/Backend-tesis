@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY download_model.sh .
 
 # Dale permisos de ejecución y ejecútalo
-#RUN chmod +x download_model.sh && ./download_model.sh
+RUN chmod +x download_model.sh && ./download_model.sh
 
 # Copia el resto del código de tu app
 COPY . .
