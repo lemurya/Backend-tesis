@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 # Copia requirements e instala dependencias Python
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el script que descarga el modelo por SSH
 COPY download_model.sh .
