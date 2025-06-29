@@ -11,8 +11,9 @@ from sqlalchemy.orm import Session
 from PIL import Image
 from decimal import Decimal
 from typing import List
+from sqlalchemy.dialects.postgresql import UUID
 
-from app.database import get_db
+from app.database import get_db  
 from app.crud import get_estilo_by_nombre, create_history_entry, get_history_entries, get_history_by_estilo, get_history_stats
 from app.schemas import Estilo, HistoryCreate, History, HistoryWithEstilo, PredictionWithImageResponse
 from app.ml_model import predict_style_from_path
@@ -180,6 +181,7 @@ def get_history(
     db: Session = Depends(get_db)
 ):
     """Obtiene el historial de predicciones con paginación y filtrado por device_uuid"""
+    print(f"device_uuid: {device_uuid}, skip: {skip}, limit: {limit}", flush=True)
     history_entries = get_history_entries(db, device_uuid=device_uuid, skip=skip, limit=limit)
     # Agregar URL completa a cada entrada
     for entry in history_entries:
